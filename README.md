@@ -15,3 +15,17 @@ source venv/bin/activate
 ```bash
 deactivate
 ```
+
+## Installed Packages
+
+```bash
+pip install Django==4.0.5
+```
+
+## Basic Django Commands
+
+```
+django-admin help
+django-admin startproject <<name-of-project>> .
+```
+
