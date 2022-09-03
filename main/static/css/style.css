@@ -74,10 +74,11 @@ body.index {
 
 #myVideo {
     position: fixed;
-    right: 0;
+    right: -30px;
+    top: -600px;
     bottom: 0;
     min-width: 100%;
-    min-height: 100%;
+    min-height: 50%;
 }
 
 .main-content {
