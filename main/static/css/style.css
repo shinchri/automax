@@ -114,3 +114,8 @@ body.index {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+input#id_username, input#id_password {
+  border-width: 1px;
+  border-color: #919aa1;
+}

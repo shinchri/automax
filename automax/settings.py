@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # 3rd party
     'localflavor',
+    'crispy_forms',
 
     # local
     'main',
@@ -127,6 +128,9 @@ STATIC_URL = 'static/'
 # Media Files (Uploaded Files)
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+# Django Crispy Form Settings
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
