@@ -6,6 +6,7 @@
 <div class="text-center">
   <main class="form-signin">
       <form action="" method="post">
+        {% csrf_token %}
         <img class="mb-4" src="{% static 'images/logo.png' %}" alt="" width="72" height="72" />
         {{ login_form | crispy }}
         <button class="w-100 btn btn-lg btn-danger" type="submit">Sign In</button>
