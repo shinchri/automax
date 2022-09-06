@@ -115,7 +115,7 @@ body.index {
     border-top-right-radius: 0;
 }
 
-input#id_username, input#id_password {
+input#id_username, input#id_password, input#id_password1, input#id_password2 {
   border-width: 1px;
   border-color: #919aa1;
 }
