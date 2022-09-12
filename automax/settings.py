@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # 3rd party
     'localflavor',
     'crispy_forms',
+    'django_filters',
 
     # local
     'main',
