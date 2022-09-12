@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.utils.decorators import method_decorator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -55,3 +56,11 @@ class RegisterView(View):
 # def register_view(request):
 #   register_form = UserCreationForm()
 #   return render(request, 'views/register.html', {'register_form': register_form})
+@method_decorator(login_required, name="dispatch")
+class ProfileView(View):
+
+  def get(self, request):
+    return render(request, 'views/profile.html', {})
+
+  def post(self, request):
+    pass
