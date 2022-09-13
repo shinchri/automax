@@ -1,3 +1,4 @@
+from imp import reload
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -37,7 +38,6 @@ def list_view(request):
       else:
         raise Exception()
     except Exception as e:
-      print(e)
       messages.error(request, 'An error occured while posting the listing.')
   elif request.method == 'GET':
     listing_form = ListingForm()
@@ -60,13 +60,28 @@ def edit_view(request, id):
   try:
     listing = Listing.objects.get(id=id)
     if listing is None:
-      raise Exception
+      raise Exception()
     if request.method == 'POST':
-      pass
+      listing_form = ListingForm(request.POST, request.FILES, instance=listing)
+      location_form = LocationForm(request.POST, instance=listing.location)
+      if listing_form.is_valid() and location_form.is_valid():
+        listing_form.save()
+        location_form.save()
+        messages.info(request, f'Listing {id} is updated successfully!')
+        return redirect('home')
+      else:
+        messages.error(request, f'An error occurred while trying to edit the listing.')
+        # return reload()
+        pass
     else:
-      pass
-    return render(request, 'views/edit.html', {})
+      listing_form = ListingForm(instance=listing)
+      location_form = LocationForm(instance=listing.location)
+    context = {
+      'listing_form': listing_form, 
+      'location_form': location_form
+    }
+    return render(request, 'views/edit.html', context)
   except Exception as e:
-    messages.error(request, f'An error occurred while trying to edit the listing.')
+    messages.error(request, f'An error occurred while trying to access the edit page.')
     return redirect('home')
   
