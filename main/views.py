@@ -1,9 +1,10 @@
 from imp import reload
-from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import Listing
+from .models import Listing, LikedListing
 from .forms import ListingForm
 from users.forms import LocationForm
 from .filters import ListingFilter
@@ -85,3 +86,18 @@ def edit_view(request, id):
     messages.error(request, f'An error occurred while trying to access the edit page.')
     return redirect('home')
   
+@login_required
+def like_listing_view(request, id):
+  listing = get_object_or_404(Listing, id=id)
+
+  liked_listing, isCreated = LikedListing.objects.get_or_create(profile=request.user.profile, listing=listing)
+
+  if not isCreated:
+    # dislike - unlike
+    liked_listing.delete()
+  else:
+    liked_listing.save()
+
+  return JsonResponse({
+    'is_liked_by_user': isCreated,
+  })
