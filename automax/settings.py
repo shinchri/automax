@@ -18,7 +18,6 @@ from django.contrib.messages import constants as messages
 
 # Initialize Environ
 env = environ.Env(
-  DEBUG = (bool, True),
   USEDEBUGDB = (bool, True)
 )
 env.read_env()
@@ -34,9 +33,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = True if env('DJANGOAPPMODE') == 'Debug' else False
+print(f'Application running in debug mode: {DEBUG}')
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["automax-django-udemy.herokuapp.com", "127.0.0.1", "localhost"]
 
 
 # Application definition
