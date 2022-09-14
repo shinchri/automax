@@ -12,11 +12,15 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import environ
 from pathlib import Path
+#from distutils.util import strtobool # can be used to turn str to bool instead of setting environ initialization
 
 from django.contrib.messages import constants as messages
 
 # Initialize Environ
-env = environ.Env()
+env = environ.Env(
+  DEBUG = (bool, True),
+  USEDEBUGDB = (bool, True)
+)
 env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,9 +34,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(env('DEBUG'))
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -89,12 +93,24 @@ WSGI_APPLICATION = 'automax.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+if env('USEDEBUGDB'):
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.sqlite3',
+          'NAME': BASE_DIR / 'db.sqlite3',
+      }
+  }
+else:
+  DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+          'NAME': env('DBNAME'),
+          'USER': env('DBUSER'),
+          'PASSWORD': env('DBPASSWORD'),
+          'HOST': env('DBHOST'),
+          'PORT': env('DBPORT'),
+      }
+  }
 
 
 # Password validation
