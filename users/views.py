@@ -89,6 +89,7 @@ class ProfileView(View):
       profile_form.save()
       location_form.save()
       messages.success(request, 'Profile Updated Successfully!')
+      return redirect('profile')
     else:
       messages.error(request, 'Error Updating Profile!')
     
