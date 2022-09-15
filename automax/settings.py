@@ -34,7 +34,6 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if env('DJANGOAPPMODE') == 'Debug' else False
-print(f'Application running in debug mode: {DEBUG}')
 
 ALLOWED_HOSTS = ["automax-django-udemy.herokuapp.com", "127.0.0.1", "localhost"]
 
